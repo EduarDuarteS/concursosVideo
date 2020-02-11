@@ -1,0 +1,10 @@
+{
+  "/posts": {
+    "target": "http://127.0.0.1/login",
+    "secure": true,
+    "pathRewrite": {
+    "^/posts": ""
+  },
+    "changeOrigin": true
+  }
+}

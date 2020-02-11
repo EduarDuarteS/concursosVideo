@@ -1,0 +1,58 @@
+<h1 mat-dialog-title>Eventos</h1>
+<div mat-dialog-content>
+  <div class="" *ngIf="data.id_user==='01'">
+    <p>Estos son los detalles del Evento</p>
+  </div>
+  <div class="" *ngIf="data.id_user!=='01'">
+    <p>Por favor ingrese los datos del Evento {{data.id}}</p>
+  </div>
+
+  <div class="example-container">
+    <mat-form-field>
+      <input matInput [(ngModel)]="data.nombre" placeholder="Nombre del Evento" cdkFocusInitial>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [(ngModel)]="data.lugar" placeholder="Lugar del Evento">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [(ngModel)]="data.direccion" placeholder="Dirección">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [(ngModel)]="data.date_inicio" [matDatepicker]="pickerIni" placeholder="Fecha de Inicio">
+      <mat-datepicker-toggle matSuffix [for]="pickerIni"></mat-datepicker-toggle>
+      <mat-datepicker #pickerIni></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [(ngModel)]="data.date_fin" [matDatepicker]="pickerFin" placeholder="Fecha de Finalización">
+      <mat-datepicker-toggle matSuffix [for]="pickerFin"></mat-datepicker-toggle>
+      <mat-datepicker #pickerFin></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-select [(ngModel)]="data.tipo_evento" placeholder="Tipo Evento">
+        <mat-option value="presencial">Presencial</mat-option>
+        <mat-option value="virtual">Virtual</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-select [(ngModel)]="data.id_categoria" placeholder="Categoría">
+        <mat-option value="1">Conferencia</mat-option>
+        <mat-option value="2">Seminario</mat-option>
+        <mat-option value="3">Congreso</mat-option>
+        <mat-option value="4">Curso</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
+<div class="" *ngIf="data.id_user!=='01'">
+
+  <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cancelar</button>
+    <div class="" *ngIf="!data.id">
+      <button mat-button [mat-dialog-close]="data">Crear Evento</button>
+    </div>
+    <div class="" *ngIf="data.id">
+      <button mat-button [mat-dialog-close]="data">Guardar</button>
+    </div>
+  </div>
+
+</div>

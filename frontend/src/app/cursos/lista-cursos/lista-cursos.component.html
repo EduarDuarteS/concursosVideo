@@ -1,0 +1,25 @@
+<div class="container">
+  <h1>Eventos</h1>
+  <button mat-button (click)="openDialog()">Crear Evento</button>
+
+
+  <div class="flex-grid">
+    <div class="col" *ngFor="let evento of eventos">
+      <mat-card class="example-card">
+        <mat-card-header>
+          <mat-card-title>{{evento.nombre}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>
+            <b>Lugar:</b> {{evento.lugar}}
+          </p>
+        </mat-card-content>
+        <mat-card-actions class="actions">
+          <button mat-button (click)="editarEvent(evento,'01')">Detalle</button>
+          <button mat-button (click)="delEvent(evento.id)">Eliminar</button>
+          <button mat-button (click)="editarEvent(evento)">Editar</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>

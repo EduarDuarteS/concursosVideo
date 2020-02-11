@@ -1,0 +1,12 @@
+.container {
+  margin: 2%;
+}
+
+table {
+  width: 100%;
+}
+
+.correcta {
+    color:green;
+    font:bold;
+}
