@@ -49,7 +49,7 @@ export class RegisterComponent implements OnInit {
               Swal.fire('Oops...', 'revisa los datos ingresados', 'error');
             },
             () => {
-              this.router.navigate(['/login']);
+              this.router.navigate(['admin/login']);
             }
           );
 

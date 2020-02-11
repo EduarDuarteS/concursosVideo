@@ -26,6 +26,7 @@ import {ToastrModule} from 'ngx-toastr';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { GestureConfig } from '@angular/material';
 import { HomeComponent } from './pagesInit/home/home.component';
+import { ConcursosComponent } from './pagesInit/concursos/concursos.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { HomeComponent } from './pagesInit/home/home.component';
     LoginComponent,
     RegisterComponent,
     DialogOverviewExampleDialog,
-    HomeComponent
+    HomeComponent,
+    ConcursosComponent
   ],
   imports: [
     SharedModule,

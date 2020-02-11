@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './pagesInit/home/home.component';
+import { ConcursosComponent } from './pagesInit/concursos/concursos.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './login/register.component';
 import { NopagefoundComponent } from './shared/nopagefound/nopagefound.component';
@@ -11,7 +12,7 @@ import { AuthGuard } from './helpers/auth.guard';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'Admin',
     component: NavbarComponent,
     canActivate: [AuthService],
     children: [
@@ -49,10 +50,11 @@ const routes: Routes = [
       },
     ]
   },
+  { path: ':path', component: ConcursosComponent },
   { path: '', component: HomeComponent },
-  { path: 'home', component: HomeComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
+  { path: 'home/info', component: HomeComponent },
+  { path: 'admin/login', component: LoginComponent },
+  { path: 'admin/register', component: RegisterComponent },
   { path: 'cursos', component: NopagefoundComponent },
   { path: 'contenido', component: NopagefoundComponent },
   { path: 'video', component: NopagefoundComponent },

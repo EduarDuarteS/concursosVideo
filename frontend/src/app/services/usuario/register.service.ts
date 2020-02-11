@@ -80,7 +80,7 @@ export class RegisterService implements CanActivate {
     const signedIn = !!this.dataLog.userToken;
     console.log("signedIn: ", signedIn);
     if (!signedIn) {
-      this.router.navigateByUrl('/home');
+      this.router.navigateByUrl('/home/info');
     }
     return signedIn;
   }

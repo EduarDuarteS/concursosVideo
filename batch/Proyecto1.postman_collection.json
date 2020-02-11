@@ -1,0 +1,375 @@
+{
+	"info": {
+		"_postman_id": "0d3e342e-2e4f-4089-a89e-668ef23e71dd",
+		"name": "Proyecto1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Admin endpoints",
+			"item": [
+				{
+					"name": "Create Admin",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"John\",\n\t\"lastName\": \"Doe\",\n\t\"email\": \"admin@admin.com\",\n\t\"password\": \"thisismypassword\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/admin/create",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"admin",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get admin info",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/admin/me",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"admin",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"admin@admin.com\",\n\t\"password\": \"thisismypassword\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/admin/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"admin",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/admin/logout",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"admin",
+								"logout"
+							]
+						},
+						"description": "Token required"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Contest endpoints",
+			"item": [
+				{
+					"name": "Create contest",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"My first contest\",\n\t\"banner\": \"url_to_banner\",\n\t\"url\":\"uniqueurl\",\n\t\"startDate\": \"2020-02-12\",\n\t\"endDate\": \"2020-02-13\",\n\t\"description\": \"If you win, you'll get $100USD\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/contest/create",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"contest",
+								"create"
+							]
+						},
+						"description": "Token required"
+					},
+					"response": []
+				},
+				{
+					"name": "Show contest",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/contest/show?url=uniqueurl",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"contest",
+								"show"
+							],
+							"query": [
+								{
+									"key": "url",
+									"value": "uniqueurl"
+								}
+							]
+						},
+						"description": "Token required \nYou cand find with one of these query params:\n*url\n*name\n*id\n\nor just not and get all admin contests"
+					},
+					"response": []
+				},
+				{
+					"name": "Get contest",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/contest/uniqueurl",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"contest",
+								"uniqueurl"
+							]
+						},
+						"description": "Validate if url exists"
+					},
+					"response": []
+				},
+				{
+					"name": "Update contest",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"My first contest\",\n\t\"banner\": \"this_is_a_new_url_to_banner\",\n\t\"url\":\"uniqueurl\",\n\t\"startDate\": \"2020-02-12\",\n\t\"endDate\": \"2020-02-13\",\n\t\"description\": \"If you win, you'll get $100000USD\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/contest/update/6",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"contest",
+								"update",
+								"6"
+							]
+						},
+						"description": "Token required\nit needs the same json fields\nIt needs contest id as path variable at the end"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete contest",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						},
+						"description": "Token required\nit needs contest id as path variable at the end\nit deletes also videos associated to this contest"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Video endpoints",
+			"item": [
+				{
+					"name": "Upload video",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "video",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "name",
+									"value": "James",
+									"type": "text"
+								},
+								{
+									"key": "lastName",
+									"value": "Bond",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "james@bond.com",
+									"type": "text"
+								},
+								{
+									"key": "message",
+									"value": "This is my video",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/uniqueurl/upload",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"uniqueurl",
+								"upload"
+							]
+						},
+						"description": "This endpoint use multipart/form-data"
+					},
+					"response": []
+				},
+				{
+					"name": "Get videos from contest",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/videos/uniqueurl?skip=0&limit=50",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"videos",
+								"uniqueurl"
+							],
+							"query": [
+								{
+									"key": "skip",
+									"value": "0"
+								},
+								{
+									"key": "limit",
+									"value": "50"
+								}
+							]
+						},
+						"description": "Token required\nit needs unique url as path variable at the end\nit needs set skip and limit query params to paginate results\nresults are ordered by created date DESC"
+					},
+					"response": []
+				},
+				{
+					"name": "Get number of videos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/uniqueurl/count",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"uniqueurl",
+								"count"
+							]
+						},
+						"description": "Token required. Return a JSON object with count attribute"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"variable": [
+		{
+			"id": "6042b9bc-6b8c-4ac5-86da-2ee278a13634",
+			"key": "url",
+			"value": "172.24.42.42:8080",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
