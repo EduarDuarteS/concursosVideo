@@ -17,7 +17,7 @@ import { environment } from 'src/environments/environment';
 })
 export class AuthService implements CanActivate {
 
-  authUrl = `${environment.apiUrl}/login`;
+  authUrl = `${environment.apiUrl}/admin/login`;
 
   // Http Headers
   httpOptions = {

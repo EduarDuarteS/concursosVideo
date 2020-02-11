@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
 
     const userLogin = new Login(forma.value.email, forma.value.password);
 
-    this.authService.login(userLogin)
+    this.authService.login(forma.value)
       .subscribe(
         result => {
           console.log(result);

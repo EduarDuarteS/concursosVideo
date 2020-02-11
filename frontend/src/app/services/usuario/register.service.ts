@@ -17,7 +17,7 @@ import { environment } from 'src/environments/environment';
 })
 export class RegisterService implements CanActivate {
 
-  authUrl = `${environment.apiUrl}/createUser`;
+  authUrl = `${environment.apiUrl}/admin/create`;
 
   // Http Headers
   httpOptions = {

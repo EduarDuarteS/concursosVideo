@@ -23,7 +23,7 @@ export class RegisterComponent implements OnInit {
 
   //Realizar registro de Usuario -- registrar(forma: NgForm) {
   registrar(forma: any) {
-    if (!this.sonIguales(forma.value.contrasenia, forma.value.contraseniaDos)) {
+    if (!this.sonIguales(forma.value.password, forma.value.passwordDos)) {
       Swal.fire('Oops...', 'Las constraseñas deben ser iguales', 'error');
       return
     }
