@@ -28,7 +28,7 @@ export class ListaCursosComponent implements OnInit {
   data;
 
   constructor(
-    private eventoService: CursoService,
+    private concursoService: CursoService,
     public authService: AuthService,
     public dialog: MatDialog,
     @Inject(DOCUMENT) private _document: Document
@@ -38,7 +38,7 @@ export class ListaCursosComponent implements OnInit {
     this.user = this.authService.getDatos();
     console.log(this.user);
 
-    this.eventoService.getEventos(this.user.dataAlumno.codigo_de_estudiante).subscribe(eventos => {
+    this.concursoService.getConcursos().subscribe(eventos => {
       console.log('data', eventos);
       this.eventos = eventos;
     });
@@ -53,10 +53,10 @@ editarEvent(event, num){
   this.openDialogEdit(event);
 }
 
-  delEvent(id_event) {
-    console.log("id_event: ", id_event);
+  delEvent(id_concurso) {
+    console.log("id_event: ", id_concurso);
 
-    this.eventoService.delEvent(this.user.dataAlumno.codigo_de_estudiante, id_event).subscribe(eventos => {
+    this.concursoService.delEvent(id_concurso).subscribe(eventos => {
       console.log('data', eventos);
       this.eventos = eventos;
       this.refresh();
@@ -79,7 +79,7 @@ editarEvent(event, num){
           result.id_user = this.user.dataAlumno.codigo_de_estudiante
           console.log(result);
 
-          this.eventoService.editEvent(result).subscribe(respuesta => {
+          this.concursoService.editEvent(result).subscribe(respuesta => {
             console.log('data', respuesta);
             this.refresh();
           });
@@ -106,13 +106,13 @@ editarEvent(event, num){
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       // this.animal = result;
-      result.date_inicio="2020/03/07";
-      result.date_fin="2020/04/07";
-      result.id_categoria = +result.id_categoria;
-      result.id_user = this.user.dataAlumno.codigo_de_estudiante
+      result.startDate="2020/03/07";
+      result.endDate="2020/04/07";
+      // result.id_categoria = +result.id_categoria;
+      // result.id_user = this.user.dataAlumno.codigo_de_estudiante
       console.log(result);
 
-      this.eventoService.createEvent(result).subscribe(respuesta => {
+      this.concursoService.createEvent(result).subscribe(respuesta => {
         console.log('data', respuesta);
         this.refresh();
       });

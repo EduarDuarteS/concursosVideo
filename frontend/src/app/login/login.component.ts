@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
           Swal.fire('Oops...', 'revisa los datos ingresados', 'error');
         },
         () => {
-          this.router.navigate(['/eventos']);
+          this.router.navigate(['/admin/eventos']);
         }
       );
   }

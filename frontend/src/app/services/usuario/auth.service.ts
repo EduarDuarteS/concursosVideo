@@ -6,6 +6,7 @@ import { AlumnoLogin } from '../../models/alumnoLogin.model';
 import { ProfesorLogin } from '../../models/profesorLogin.model';
 import { Login } from '../../models/login.model';
 import { Persona } from "../../models/persona.model";
+import * as jwt_decode from 'jwt-decode';
 
 import { Observable } from 'rxjs';
 import { retry, catchError, map } from 'rxjs/operators';
@@ -44,11 +45,14 @@ export class AuthService implements CanActivate {
         map((response: any) => {
           console.log('response: ', response);
 
+          var decoded = jwt_decode(response.token);
+          console.log("----------", decoded);
+
           this.dataLog.userToken = response.token;
           this.dataLog.isAlumno = true;
 
-          // this.dataLog.dataAlumno.codigo_de_estudiante = response.data.id_user;
-          this.dataLog.dataAlumno.persona.username = usuario.email;
+          this.dataLog.dataAlumno.codigo_de_estudiante = decoded.id;
+          this.dataLog.dataAlumno.persona.username = decoded.email;
           this.dataLog.dataAlumno.persona.email = usuario.email;
           // this.dataLog.dataAlumno.persona.first_name=response.data.nombres;
           // this.dataLog.dataAlumno.persona.last_name=response.data.apellidos;

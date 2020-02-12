@@ -12,7 +12,7 @@ import { AuthGuard } from './helpers/auth.guard';
 
 const routes: Routes = [
   {
-    path: 'Admin',
+    path: 'admin',
     component: NavbarComponent,
     canActivate: [AuthService],
     children: [

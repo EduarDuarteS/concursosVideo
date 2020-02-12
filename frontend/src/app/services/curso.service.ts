@@ -3,6 +3,7 @@ import { environment } from 'src/environments/environment';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { retry, catchError, map } from 'rxjs/operators';
+import { AuthService } from '../services/usuario/auth.service';
 
 
 @Injectable({
@@ -10,22 +11,26 @@ import { retry, catchError, map } from 'rxjs/operators';
 })
 export class CursoService {
 
+
   // Http Headers
   httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${this.authService.getInfoLogin().userToken}`
     })
   };
-  constructor(private httpClient: HttpClient) { }
+
+  constructor(private httpClient: HttpClient, private authService: AuthService) { }
 
   editEvent(evento): Observable<any> {
-    let eventosUrl = `${environment.apiUrl}/updatevent`;
-    console.log("eventosUrl",eventosUrl);
+
+    let eventosUrl = `${environment.apiUrl}/contest/update/${evento.id}`;
+    console.log("eventosUrl", eventosUrl);
 
     return this.httpClient.put(eventosUrl, JSON.stringify(evento), this.httpOptions)
       .pipe(
         map((response: any) => {
-          console.log('response: ',response);
+          console.log('response: ', response);
 
           return response;
         }),
@@ -39,14 +44,24 @@ export class CursoService {
   }
 
 
-  createEvent(evento): Observable<any> {
-    let eventosUrl = `${environment.apiUrl}/creatEvent`;
-    console.log("eventosUrl",eventosUrl);
+  createEvent(concurso): Observable<any> {
+    let eventosUrl = `${environment.apiUrl}/contest/create`;
+    let token = `Bearer ${this.authService.getInfoLogin().userToken}`;
+    console.log(token);
 
-    return this.httpClient.post(eventosUrl, JSON.stringify(evento), this.httpOptions)
+    // let httpOptions = {
+    //   headers: new HttpHeaders({
+    //     'Content-Type': 'application/json',
+    //     'Authorization': token
+    //   })
+    // };
+    console.log("eventosUrl", eventosUrl);
+    console.log("headers: ", httpOptions);
+
+    return this.httpClient.post(eventosUrl, JSON.stringify(concurso), this.httpOptions)
       .pipe(
         map((response: any) => {
-          console.log('response: ',response);
+          console.log('response: ', response);
 
           return response;
         }),
@@ -59,25 +74,32 @@ export class CursoService {
       );
   }
 
-  getEventos(id_user): Observable<any> {
-    let eventosUrl = `${environment.apiUrl}/events?id_user=${id_user}`;
-    console.log("eventosUrl",eventosUrl);
+  getConcursos(): Observable<any> {
+    let eventosUrl = `${environment.apiUrl}/contest/show`;
 
-    return this.httpClient.get<any>(eventosUrl);
+    // let token = `Bearer ${this.authService.getInfoLogin().userToken}`;
+    // console.log("eventosUrl", eventosUrl);
+    // let httpOptions = {
+    //   headers: new HttpHeaders({
+    //     'Content-Type': 'application/json',
+    //     'Authorization': token
+    //   })
+    // };
+    return this.httpClient.get<any>(eventosUrl, this.httpOptions);
   }
 
-  delEvent(id_user, id_event): Observable<any> {
-    let delEventUrl = `${environment.apiUrl}/deleteEvent?id=${id_event}&id_user=${id_user}`;
+  delEvent(id): Observable<any> {
+    let delEventUrl = `${environment.apiUrl}/contest/delete/${id}`;
     console.log("delEventUrl", delEventUrl);
-    let evento =  { id: id_event, id_user: id_user  }
-    console.log(evento);
-    console.log(JSON.stringify(evento));
+    // let evento = { id: id_event, id_user: id_user }
+    // console.log(evento);
+    // console.log(JSON.stringify(evento));
 
     // return this.httpClient.get<any>(eventosUrl);
     return this.httpClient.delete(delEventUrl, this.httpOptions)
       .pipe(
         map((response: any) => {
-          console.log('response: ',response);
+          console.log('response: ', response);
 
 
           return response;

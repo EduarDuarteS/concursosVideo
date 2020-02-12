@@ -34,6 +34,7 @@
     "bootstrap": "^4.4.1",
     "express": "^4.17.1",
     "hammerjs": "^2.0.8",
+    "jwt-decode": "^2.2.0",
     "mat-sidenav-menu": "^0.10.1",
     "mdbootstrap": "^4.12.0",
     "ng2-youtube-player": "0.0.31",
