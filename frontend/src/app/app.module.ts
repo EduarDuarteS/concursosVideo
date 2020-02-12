@@ -27,6 +27,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { GestureConfig } from '@angular/material';
 import { HomeComponent } from './pagesInit/home/home.component';
 import { ConcursosComponent } from './pagesInit/concursos/concursos.component';
+import { EmbedVideo } from 'ngx-embed-video';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { ConcursosComponent } from './pagesInit/concursos/concursos.component';
     YoutubePlayerModule,
     VideoModalModule,
     VideoAlumnoModule,
+    EmbedVideo.forRoot(),
     ModalModule.forRoot(),
     MDBBootstrapModule.forRoot(),
     ToastrModule.forRoot()

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { EmbedVideoService } from 'ngx-embed-video';
 
 @Component({
   selector: 'app-concursos',
@@ -7,8 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ConcursosComponent implements OnInit {
 
-  constructor() { }
+  yt_iframe_html: any;
+  vimeo_iframe_html: any;
+  dm_iframe_html: any;
 
+  youtubeUrl = "https://www.youtube.com/watch?v=gVsEm_QRWiQ&list=RDgVsEm_QRWiQ&start_radio=1";
+
+
+  constructor(
+    private embedService: EmbedVideoService
+  ) {
+    this.yt_iframe_html = this.embedService.embed(this.youtubeUrl);
+  }
   ngOnInit() {
   }
 

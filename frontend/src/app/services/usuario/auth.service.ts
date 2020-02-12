@@ -28,7 +28,7 @@ export class AuthService implements CanActivate {
   dataLog: InfoLogin = {
     userToken: null,
     isAlumno: null,
-    dataAlumno: new AlumnoLogin(new Persona("","",""),""),
+    dataAlumno: new AlumnoLogin(new Persona("", "", ""), ""),
     dataProfesor: null
   };
 
@@ -42,17 +42,16 @@ export class AuthService implements CanActivate {
     return this.http.post(this.authUrl, JSON.stringify(usuario), this.httpOptions)
       .pipe(
         map((response: any) => {
-          console.log('response: ',response);
+          console.log('response: ', response);
 
-          this.dataLog.userToken = response.data.contrasena;
-            this.dataLog.isAlumno = true;
-            console.log(response.data.id_user);
+          this.dataLog.userToken = response.token;
+          this.dataLog.isAlumno = true;
 
-            this.dataLog.dataAlumno.codigo_de_estudiante = response.data.id_user;
-            this.dataLog.dataAlumno.persona.username =response.data.email;
-            this.dataLog.dataAlumno.persona.email=response.data.email;
-            this.dataLog.dataAlumno.persona.first_name=response.data.nombres;
-            this.dataLog.dataAlumno.persona.last_name=response.data.apellidos;
+          // this.dataLog.dataAlumno.codigo_de_estudiante = response.data.id_user;
+          this.dataLog.dataAlumno.persona.username = usuario.email;
+          this.dataLog.dataAlumno.persona.email = usuario.email;
+          // this.dataLog.dataAlumno.persona.first_name=response.data.nombres;
+          // this.dataLog.dataAlumno.persona.last_name=response.data.apellidos;
           this.storage(this.dataLog);
           console.log("dataLog: ", this.dataLog);
           return response;
