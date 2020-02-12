@@ -36,8 +36,7 @@
     <div class="container h-100">
       <div class="row h-100 align-items-center">
         <div class="col-12 text-center">
-          <h1 class="font-weight-light"> Vertically Centered Masthead Content</h1>
-          <p class="lead">A great starter layout for a landing page</p>
+
         </div>
       </div>
     </div>
@@ -45,7 +44,8 @@
 
   <!-- Page Content -->
 
-
+  <h1 class="font-weight-light"> {{concurso.description}}</h1>
+  <p class="lead">El concurso empieza el {{concurso.startDate}} y termina el {{concurso.endDate}}</p>
 
   <div style="text-align:center;" [innerHtml]="yt_iframe_html"></div>
 
