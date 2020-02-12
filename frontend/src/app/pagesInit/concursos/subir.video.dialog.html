@@ -1,0 +1,57 @@
+<h1 mat-dialog-title>Participa con tu Video</h1>
+<div mat-dialog-content>
+
+  <div>
+    <p>Por favor ingrese los datos de tu Video</p>
+  </div>
+
+  <button type="button" mat-button (click)="imgFileInput.click()">Selecionar Video</button>
+  <input hidden type="file" #imgFileInput [(ngModel)]="data.video" />
+
+
+  <br>
+  <form method="post" action="http://172.24.42.42:8080/sanitas/upload" enctype="multipart/form-data">
+    archivo: <input name="video" type="file"> input
+    email: <input type="text" name="email">
+    nombre: <input type="text" name="name">
+    lastName: <input type="text" name="lastName">
+    mensaje: <input type="text" name="message">
+    <button type="submit"> </button>
+  </form>
+  <br>
+
+
+  <div class="example-container">
+
+
+    <!-- <mat-form-field> -->
+    <!-- <input hidden type="file" #imgFileInput (change)="previewImage($event)" /> -->
+    <!-- <input matInput [(ngModel)]="data.name" placeholder="Nombre del Concurso" cdkFocusInitial> -->
+    <!-- <input matInput type="file" [(ngModel)]="data.video" placeholder="Nombre del Participante" cdkFocusInitial> -->
+    <!-- </mat-form-field> -->
+
+    <mat-form-field>
+      <input matInput type="text" [(ngModel)]="data.name" placeholder="Nombres del Participante" cdkFocusInitial>
+      <!-- <input matInput [(ngModel)]="data.name" placeholder="Nombre del Concurso" cdkFocusInitial> -->
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="text" [(ngModel)]="data.lastName" placeholder="Apellidos del Participante">
+      <!-- <input matInput type="text" [(ngModel)]="data.email" placeholder="Nombre del Concurso"> -->
+      <input matInput [(ngModel)]="data.banner" placeholder="URL banner img">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="text" [(ngModel)]="data.email" placeholder="Correo Electrónico">
+      <!-- <input matInput [(ngModel)]="data.url" placeholder="Nombre URL concurso"> -->
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="text" [(ngModel)]="data.message" placeholder="Mensaje de tu Video">
+      <!-- <input matInput [(ngModel)]="data.description" placeholder="Descripción del Concurso"> -->
+    </mat-form-field>
+  </div>
+</div>
+
+
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+  <button mat-button [mat-dialog-close]="data">Subir Video</button>
+</div>

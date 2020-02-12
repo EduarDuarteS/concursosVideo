@@ -47,6 +47,9 @@
   <h1 class="font-weight-light"> {{concurso.description}}</h1>
   <p class="lead">El concurso empieza el {{concurso.startDate}} y termina el {{concurso.endDate}}</p>
 
+  <!-- Subir Video -->
+  <button mat-button  (click)="openDialog()" color="primary">Sube tu Video</button>
+
   <div style="text-align:center;" [innerHtml]="yt_iframe_html"></div>
 
 </div>

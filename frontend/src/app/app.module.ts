@@ -14,6 +14,7 @@ import { MaterialModule } from '../material.module';
 import { YoutubePlayerModule } from 'ng2-youtube-player';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { DialogOverviewExampleDialog } from "./cursos/lista-cursos/lista-cursos.component";
+import { ChargeVDialogComponent } from "./pagesInit/concursos/concursos.component";
 
 // Modulos
 import { LoginComponent } from './login/login.component';
@@ -34,6 +35,7 @@ import { EmbedVideo } from 'ngx-embed-video';
     AppComponent,
     LoginComponent,
     RegisterComponent,
+    ChargeVDialogComponent,
     DialogOverviewExampleDialog,
     HomeComponent,
     ConcursosComponent
@@ -56,7 +58,7 @@ import { EmbedVideo } from 'ngx-embed-video';
     MDBBootstrapModule.forRoot(),
     ToastrModule.forRoot()
   ],
-  entryComponents: [DialogOverviewExampleDialog],
+  entryComponents: [DialogOverviewExampleDialog, ChargeVDialogComponent],
   providers: [
     { provide: MatDialogRef, useValue: {} },
     {
