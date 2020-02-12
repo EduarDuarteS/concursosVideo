@@ -3,14 +3,14 @@
   <div class="container">
     <a class="navbar-brand" href="#">Start Bootstrap</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+      <span class="navbar-toggler-icon"></span>
+    </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item active">
           <a class="nav-link" href="#">Home
-                <span class="sr-only">(current)</span>
-              </a>
+            <span class="sr-only">(current)</span>
+          </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">About</a>
@@ -27,23 +27,29 @@
 </nav>
 
 <!-- Full Page Image Header with Vertically Centered Content -->
-<header class="masthead" style="background-image: url('https://www.viviendocali.com/wp-content/uploads/2019/05/EPS-Sanitas-en-soledad.jpg')">
-  <div class="container h-100">
-    <div class="row h-100 align-items-center">
-      <div class="col-12 text-center">
-        <h1 class="font-weight-light">Vertically Centered Masthead Content</h1>
-        <p class="lead">A great starter layout for a landing page</p>
+<!-- <header class="masthead" style=`background-image: url('${concurso.banner}')`> -->
+<div class="" *ngIf=concurso>
+
+  {{concurso}}
+  <!-- <header class="masthead" style="background-image: url('https://www.viviendocali.com/wp-content/uploads/2019/05/EPS-Sanitas-en-soledad.jpg')"> -->
+  <header class="masthead" [ngStyle]="{'background-image': 'url(' + concurso.banner + ')'}" >
+    <div class="container h-100">
+      <div class="row h-100 align-items-center">
+        <div class="col-12 text-center">
+          <h1 class="font-weight-light"> Vertically Centered Masthead Content</h1>
+          <p class="lead">A great starter layout for a landing page</p>
+        </div>
       </div>
     </div>
-  </div>
-</header>
+  </header>
 
-<!-- Page Content -->
-
+  <!-- Page Content -->
 
 
-<div style="text-align:center;" [innerHtml]="yt_iframe_html"></div>
 
+  <div style="text-align:center;" [innerHtml]="yt_iframe_html"></div>
+
+</div>
 <!-- <section class="py-5">
   <div class="container">
     <h2 class="font-weight-light">Page Content</h2>
