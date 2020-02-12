@@ -36,7 +36,7 @@ export class CursoService {
         }),
         retry(1),
         catchError(err => {
-          console.log('Error creando evento', err);
+          console.log('Error Editando evento', err);
           return Observable.throw(err);
         }
         )
@@ -46,8 +46,9 @@ export class CursoService {
 
   createEvent(concurso): Observable<any> {
     let eventosUrl = `${environment.apiUrl}/contest/create`;
-    let token = `Bearer ${this.authService.getInfoLogin().userToken}`;
-    console.log(token);
+
+    // let token = `Bearer ${this.authService.getInfoLogin().userToken}`;
+    // console.log(token);
 
     // let httpOptions = {
     //   headers: new HttpHeaders({
@@ -55,8 +56,8 @@ export class CursoService {
     //     'Authorization': token
     //   })
     // };
-    console.log("eventosUrl", eventosUrl);
-    console.log("headers: ", httpOptions);
+    // console.log("eventosUrl", eventosUrl);
+    // console.log("headers: ", httpOptions);
 
     return this.httpClient.post(eventosUrl, JSON.stringify(concurso), this.httpOptions)
       .pipe(
@@ -91,9 +92,7 @@ export class CursoService {
   delEvent(id): Observable<any> {
     let delEventUrl = `${environment.apiUrl}/contest/delete/${id}`;
     console.log("delEventUrl", delEventUrl);
-    // let evento = { id: id_event, id_user: id_user }
-    // console.log(evento);
-    // console.log(JSON.stringify(evento));
+
 
     // return this.httpClient.get<any>(eventosUrl);
     return this.httpClient.delete(delEventUrl, this.httpOptions)
