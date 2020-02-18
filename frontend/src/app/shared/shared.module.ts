@@ -7,7 +7,6 @@ import { RouterModule } from '@angular/router';
 import { PipesModule } from '../pipes/pipes.module';
 
 import { NavbarComponent } from './navbar/navbar.component';
-import { NopagefoundComponent } from './nopagefound/nopagefound.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -17,6 +16,8 @@ import { MatListModule } from '@angular/material/list';
 
 import { MaterialModule } from '../../material.module';
 
+import { JwPlayerComponent } from './ng2-jwplayer/jw-player.component';
+import { NopagefoundComponent } from './nopagefound/nopagefound.component';
 
 @NgModule({
   imports: [
@@ -34,12 +35,13 @@ import { MaterialModule } from '../../material.module';
   declarations: [
     NavbarComponent,
     NopagefoundComponent,
-    NopagefoundComponent
+    JwPlayerComponent
   ],
   exports: [
     NopagefoundComponent,
     NavbarComponent,
-    NopagefoundComponent
+    NopagefoundComponent,
+    JwPlayerComponent
   ]
 })
 export class SharedModule { }

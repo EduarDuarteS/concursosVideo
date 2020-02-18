@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, Inject, ViewChild, ElementRef  } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Inject, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { EmbedVideoService } from 'ngx-embed-video';
 import { URLUnicaService } from "../../services/urlUnica.service";
@@ -23,7 +23,7 @@ export interface DialogData {
 })
 export class ConcursosComponent implements OnInit {
 
-  @ViewChild("player", {static: false}) video: ElementRef;
+  @ViewChild("player", { static: false }) video: ElementRef;
   public href: string = "";
   public concurso: any;
 
@@ -33,6 +33,13 @@ export class ConcursosComponent implements OnInit {
   dm_iframe_html: any;
 
   youtubeUrl = "https://www.youtube.com/watch?v=gVsEm_QRWiQ&list=RDgVsEm_QRWiQ&start_radio=1";
+
+
+  //Datos child jw-playerId
+  file: string = 'http://172.24.42.42:8080/resources/upload/No%20me%20arrepiento.mp4';
+  height: string = "420px";
+  width: string = "680px";
+  seek: string = "seek";
 
   // DATOS DE DIALOG
   eventos;
@@ -51,6 +58,7 @@ export class ConcursosComponent implements OnInit {
     this.yt_iframe_html = this.embedService.embed(this.youtubeUrl);
   }
   ngAfterViewInit() {
+    console.log('file: ', this.file);
     console.log(this.video.nativeElement.innerHTML);
     this.video.nativeElement.innerHTML = "DOM updated successfully!!!";
 
@@ -188,10 +196,10 @@ export class ConcursosComponent implements OnInit {
 
 
 
-    console.log(playerJw);
+    // console.log(playerJw);
     console.log('message', this._document);
     console.log('message2', this.video);
-    console.log('aca', this.video.nativeElement.innerHTML);
+    // console.log('aca', this.video.nativeElement.innerHTML);
   }
 
 

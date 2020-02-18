@@ -67,23 +67,13 @@
 
 
 
+<div #player id="player">This text will be removed.</div>
 
 
-    <div id="player">esto no debe salir</div>
+<div id="player">esto no debe salir</div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <div #player id="player">This text will be removed.</div>
+<jw-player [file]="file"
+           [height]="height"
+           [width]="width"
+           (onTime)="onTime($event)">
+</jw-player>
