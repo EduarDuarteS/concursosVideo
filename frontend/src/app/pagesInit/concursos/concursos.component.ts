@@ -23,6 +23,8 @@ export interface DialogData {
 })
 export class ConcursosComponent implements OnInit {
 
+  public loading: boolean = true;
+
   @ViewChild("player", { static: false }) video: ElementRef;
   public href: string = "";
   public concurso: any;
@@ -31,11 +33,14 @@ export class ConcursosComponent implements OnInit {
   yt_iframe_html: any;
   vimeo_iframe_html: any;
   dm_iframe_html: any;
-
   youtubeUrl = "https://www.youtube.com/watch?v=gVsEm_QRWiQ&list=RDgVsEm_QRWiQ&start_radio=1";
 
-
   //Datos child jw-playerId
+  files = [
+    { 'file': "http://172.24.42.42:8080/resources/upload/No%20me%20arrepiento.mp4" },
+    { 'file': "http://172.24.42.42:8080/resources/upload/No%20me%20arrepiento.mp4" },
+    { 'file': "http://172.24.42.42:8080/resources/upload/No%20me%20arrepiento.mp4" },
+  ];
   file: string = 'http://172.24.42.42:8080/resources/upload/No%20me%20arrepiento.mp4';
   height: string = "420px";
   width: string = "680px";
@@ -179,6 +184,8 @@ export class ConcursosComponent implements OnInit {
         result => {
           this.concurso = result;
           console.log(result);
+          this.loading = false;
+
           if (!result) {
             this.router.navigate(['/err/err']);
           }

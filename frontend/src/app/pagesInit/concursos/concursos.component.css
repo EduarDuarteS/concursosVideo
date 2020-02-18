@@ -1,6 +1,8 @@
 .masthead {
-  height: 100vh;
-  min-height: 500px;
+  height: 150vh;
+  min-height: 150px;
+  max-height: 250px;
+
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

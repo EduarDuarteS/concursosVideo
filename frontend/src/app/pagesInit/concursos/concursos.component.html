@@ -1,79 +1,78 @@
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light shadow fixed-top">
-  <div class="container">
-    <a class="navbar-brand" href="#">Start Bootstrap</a>
+<h1 *ngIf=loading>Loading ...</h1>
+<div *ngIf=concurso>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow fixed-top" *ngIf=concurso>
+    <a class="navbar-brand" href="#"><i><b>{{concurso.name}}</b></i></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="#">Home
+          <a class="nav-link" (click)="openDialog()" href="javascript:void(0);">Sube tu Video
             <span class="sr-only">(current)</span>
           </a>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a class="nav-link" href="#">About</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Services</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Contact</a>
-        </li>
+        </li>    -->
       </ul>
     </div>
-  </div>
-</nav>
+  </nav>
 
-<!-- Full Page Image Header with Vertically Centered Content -->
-<!-- <header class="masthead" style=`background-image: url('${concurso.banner}')`> -->
-<div class="" *ngIf=concurso>
+  <div style="margin-left:2%;margin-right:2%">
 
-  {{concurso}}
-  <!-- <header class="masthead" style="background-image: url('https://www.viviendocali.com/wp-content/uploads/2019/05/EPS-Sanitas-en-soledad.jpg')"> -->
-  <header class="masthead" [ngStyle]="{'background-image': 'url(' + concurso.banner + ')'}">
-    <div class="container h-100">
-      <div class="row h-100 align-items-center">
-        <div class="col-12 text-center">
+    <!-- Full Page Image Header with Vertically Centered Content -->
+    <!-- <header class="masthead" style=`background-image: url('${concurso.banner}')`> -->
 
+    {{concurso}}
+    <!-- <header class="masthead" style="background-image: url('https://www.viviendocali.com/wp-content/uploads/2019/05/EPS-Sanitas-en-soledad.jpg')"> -->
+    <header class="masthead" [ngStyle]="{'background-image': 'url(' + concurso.banner + ')'}">
+      <div class="container h-100">
+        <div class="row h-100 align-items-center">
+          <div class="col-12 text-center">
+
+          </div>
         </div>
       </div>
-    </div>
-  </header>
+    </header>
 
-  <!-- Page Content -->
+    <!-- Page Content -->
+    <h1 class="font-weight-light"> {{concurso.description}}</h1>
+    <p class="lead" style="color:gray">El concurso empieza el <i>{{concurso.startDate | date }}</i> y termina el <i>{{concurso.endDate | date}}</i></p>
 
-  <h1 class="font-weight-light"> {{concurso.description}}</h1>
-  <p class="lead">El concurso empieza el {{concurso.startDate}} y termina el {{concurso.endDate}}</p>
+    <!-- Subir Video -->
+    <button mat-button (click)="openDialog()" color="primary">Sube tu Video</button>
+    <!-- <div style="text-align:center;" [innerHtml]="yt_iframe_html"></div> -->
 
-  <!-- Subir Video -->
-  <button mat-button (click)="openDialog()" color="primary">Sube tu Video</button>
-
-  <div style="text-align:center;" [innerHtml]="yt_iframe_html"></div>
-
-
-  <!-- jwPlayer -->
-
-</div>
-
-
-<!-- <section class="py-5">
+    <!-- <section class="py-5">
   <div class="container">
     <h2 class="font-weight-light">Page Content</h2>
     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus ab nulla dolorum autem nisi officiis blanditiis voluptatem hic, assumenda aspernatur facere ipsam nemo ratione cumque magnam enim fugiat reprehenderit expedita.</p>
   </div>
 </section> -->
 
+    <!-- <div #player id="player">This text will be removed.</div> -->
+    <!-- <jw-player [file]="file" [height]="height" [width]="width" (onTime)="onTime($event)">
+  </jw-player> -->
 
+    <div class="" style="margin-bottom: 10px;">
+      <!-- <div class="row">     -->
+      <div class="col-md-4 " *ngFor="let fl of files">
+        <div class="card">
+          <div class="card-image">
 
-<div #player id="player">This text will be removed.</div>
+            <jw-player [file]="fl.file" [height]="height" [width]="width" (onTime)="onTime($event)">>
+            </jw-player>
+          </div><!-- card image -->
 
+          <div class="card-content">
+            <span class="card-title">Will my credits transfer?</span>
 
-<div id="player">esto no debe salir</div>
+          </div><!-- card content -->
+        </div>
+      </div>
+    </div>
 
-<jw-player [file]="file"
-           [height]="height"
-           [width]="width"
-           (onTime)="onTime($event)">
-</jw-player>
+  </div>
