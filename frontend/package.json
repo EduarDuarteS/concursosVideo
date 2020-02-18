@@ -37,6 +37,7 @@
     "jwt-decode": "^2.2.0",
     "mat-sidenav-menu": "^0.10.1",
     "mdbootstrap": "^4.12.0",
+    "ng2-jwplayer": "^1.0.0-alpha.1",
     "ng2-youtube-player": "0.0.31",
     "ngx-bootstrap": "^5.3.2",
     "ngx-embed-video": "^1.0.4",

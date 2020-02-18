@@ -32,7 +32,7 @@
 
   {{concurso}}
   <!-- <header class="masthead" style="background-image: url('https://www.viviendocali.com/wp-content/uploads/2019/05/EPS-Sanitas-en-soledad.jpg')"> -->
-  <header class="masthead" [ngStyle]="{'background-image': 'url(' + concurso.banner + ')'}" >
+  <header class="masthead" [ngStyle]="{'background-image': 'url(' + concurso.banner + ')'}">
     <div class="container h-100">
       <div class="row h-100 align-items-center">
         <div class="col-12 text-center">
@@ -48,14 +48,42 @@
   <p class="lead">El concurso empieza el {{concurso.startDate}} y termina el {{concurso.endDate}}</p>
 
   <!-- Subir Video -->
-  <button mat-button  (click)="openDialog()" color="primary">Sube tu Video</button>
+  <button mat-button (click)="openDialog()" color="primary">Sube tu Video</button>
 
   <div style="text-align:center;" [innerHtml]="yt_iframe_html"></div>
 
+
+  <!-- jwPlayer -->
+
 </div>
+
+
 <!-- <section class="py-5">
   <div class="container">
     <h2 class="font-weight-light">Page Content</h2>
     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus ab nulla dolorum autem nisi officiis blanditiis voluptatem hic, assumenda aspernatur facere ipsam nemo ratione cumque magnam enim fugiat reprehenderit expedita.</p>
   </div>
 </section> -->
+
+
+
+
+
+    <div id="player">esto no debe salir</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div #player id="player">This text will be removed.</div>
