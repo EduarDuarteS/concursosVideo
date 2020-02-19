@@ -9,13 +9,13 @@ const adminRoute = require('./routes/adminRoute')
 const contestRoute = require('./routes/contestRoute')
 const videoRoute = require('./routes/videoRouter')
 
-const port = process.env.PORT || 8081
+const port = process.env.PORT || 8082
 
 app.use(express.json())
 
 var cors = require('cors');
 app.use(cors({
-  origin: ['http://localhost:8080', 'http://127.0.0.1:8080', 'http://172.24.42.62:8080'],
+  origin: ['http://localhost:8080', 'http://127.0.0.1:8080', 'http://172.24.42.61:8080'],
   credentials: true
 }));
 
