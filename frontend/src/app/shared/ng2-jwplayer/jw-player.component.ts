@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output, ElementRef, AfterViewInit, OnDestroy } from "@angular/core";
+import { environment } from 'src/environments/environment';
 
 declare var jwplayer: any;
 
@@ -10,9 +11,7 @@ declare var jwplayer: any;
 
 export class JwPlayerComponent implements AfterViewInit {
 
-  constructor(private _elementRef: ElementRef) {
-    console.log('file: ', this.file);
-  }
+  constructor(private _elementRef: ElementRef) { }
 
   guid = () => {
     function s4() {
@@ -58,12 +57,12 @@ export class JwPlayerComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.playerInstance.setup({
-      file: this.file,
+      file: `${environment.apiUrl}/${this.file}` ,
       height: this.height,
       width: this.width
     });
     this.handleEventsFor(this.playerInstance);
-    console.log('file 333: ', this.file);
+
 
   }
 

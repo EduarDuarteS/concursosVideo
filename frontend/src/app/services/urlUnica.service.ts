@@ -31,6 +31,12 @@ export class URLUnicaService {
     return this.httpClient.get<any>(eventosUrl, this.httpOptions);
   }
 
+  getVideos(url_unica, skip, limit): Observable<any> {
+    let videosUrl = `${environment.apiUrl}/videos${url_unica}?skip=${skip}&limit=${limit}`;
+    console.log("videosUrl",videosUrl);
+    return this.httpClient.get<any>(videosUrl, this.httpOptions);
+  }
+
   delEvent(id): Observable<any> {
     let delEventUrl = `${environment.apiUrl}/contest/delete/${id}`;
     console.log("delEventUrl", delEventUrl);

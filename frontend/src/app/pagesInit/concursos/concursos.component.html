@@ -57,18 +57,18 @@
     <!-- <jw-player [file]="file" [height]="height" [width]="width" (onTime)="onTime($event)">
   </jw-player> -->
 
-    <div class="" style="margin-bottom: 10px;">
-      <!-- <div class="row">     -->
-      <div class="col-md-4 " *ngFor="let fl of files">
+    <div >
+      <!-- <div class="row">  -->
+      <div style="margin-bottom:50px;" class="col-md-4 " *ngFor="let video of dataVideo">
         <div class="card">
           <div class="card-image">
 
-            <jw-player [file]="fl.file" [height]="height" [width]="width" (onTime)="onTime($event)">>
+            <jw-player [file]="video.originalPath" [height]="height" [width]="width" (onTime)="onTime($event)">>
             </jw-player>
           </div><!-- card image -->
 
           <div class="card-content">
-            <span class="card-title">Will my credits transfer?</span>
+            <span class="card-title">{{video.message}}</span>
 
           </div><!-- card content -->
         </div>
