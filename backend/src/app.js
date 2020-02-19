@@ -9,7 +9,7 @@ const adminRoute = require('./routes/adminRoute')
 const contestRoute = require('./routes/contestRoute')
 const videoRoute = require('./routes/videoRouter')
 
-const port = process.env.PORT || 8080
+const port = process.env.PORT || 8081
 
 app.use(express.json())
 
