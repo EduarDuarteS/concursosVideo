@@ -18,6 +18,10 @@ const Video = sequelize.define('Video', {
         type: DataTypes.STRING,
         allowNull: false
     },
+    videoname: {
+	    type: DataTypes.STRING,
+ 	    allowNull: true
+    },
     isConverted: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
