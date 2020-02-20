@@ -1,6 +1,6 @@
 #!/bin/bash
-FILES=resources/unprocessed/*
-cd ./resources/unprocessed/
+FILES=/home/grupo3/Grupo03/backend/resources/unprocessed/*
+cd /home/grupo3/Grupo03/backend/resources/unprocessed/
 
 UPLOAD="resources/upload/"
 UNPROCESSED="resources/unprocessed/"
