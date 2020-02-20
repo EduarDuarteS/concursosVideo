@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit, Inject, ViewChild, ElementRef } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { EmbedVideoService } from 'ngx-embed-video';
 import { URLUnicaService } from "../../services/urlUnica.service";
@@ -163,11 +163,22 @@ export class ChargeVDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     private formBuilder: FormBuilder,
     private httpClient: HttpClient
-  ) { }
+  ) {
+    // this.uploadForm = new FormGroup({
+    //   name: new FormControl(),
+    //   lastName: new FormControl(),
+    //   email: new FormControl(),
+    //   message: new FormControl()
+    // });
+  }
 
   ngOnInit() {
     this.uploadForm = this.formBuilder.group({
-      profile: ['']
+      profile: [''],
+      name: new FormControl(),
+      lastName: new FormControl(),
+      email: new FormControl(),
+      message: new FormControl()
     });
     console.log(this.uploadForm);
   }
@@ -182,18 +193,44 @@ export class ChargeVDialogComponent {
 
   onSubmit(): void {
     let formData = new FormData();
-    formData.append('video', this.uploadForm.get('profile').value);
-    console.log(this.uploadForm);
 
-    formData.append("name", "EDUARD");
-    formData.append("lastName", "DUARTE");
-    formData.append("email", "EDUARD.DUARTE@HOTMAIL.COM");
-    formData.append("message", "SUBIENDO VIDEO PRESENTACION");
+    formData.append("name", this.uploadForm.get('name').value);
+    formData.append("lastName", this.uploadForm.get('lastName').value);
+    formData.append("email", this.uploadForm.get('email').value);
+    formData.append("message", this.uploadForm.get('message').value);
+    // formData.append("videoname", "PRUEBA");
+    // formData.append("videoname", this.uploadForm.get('videoname').value);
+
+    console.log("uploadForm: ", this.uploadForm);
+
+    //capturar ext
+    let ext: string = this.getFileExtension(this.uploadForm.value.profile.name);
+    let nombre: string = this.uploadForm.value.profile.name;
+    let nomSinExt: string = nombre.substr(0, (nombre.length - (ext.length + 1)));
+
+    let newNom: string = nomSinExt + this.guid() + "." + ext;
+    // console.log(this.uploadForm.get('profile'));
+    // console.log(this.uploadForm.get('profile').value.name);
+    // let mani: any =
+    // this.uploadForm.get('profile').setValue({
+    //   name: newNom,
+    // });
+
+    formData.append('video', this.uploadForm.get('profile').value);
+    // .setValue(newNom)
+    // mani.value.name = newNom;
+    // console.log(this.uploadForm.get('profile'));
+    // console.log(this.uploadForm.get('profile').value.name);
+
+
+    // console.log("newNom: ", newNom);
 
     // Display the key/value pairs
-    // for (var pair of formData.entries()) {
-    //   console.log(pair[0] + ', ' + pair[1]);
-    // }
+    for (var pair of formData.entries()) {
+      console.log(pair[0] + ', ' + pair[1]);
+    }
+
+
 
     // console.log(formData.getAll());
     // console.log(this.uploadForm.get('name').value);
@@ -207,6 +244,19 @@ export class ChargeVDialogComponent {
       (err) => console.log(err)
     );
   };
+
+  getFileExtension(filename) {
+    return filename.split('.').pop();
+  }
+
+  guid() {
+    function s4() {
+      return Math.floor((1 + Math.random()) * 0x10000)
+        .toString(16)
+        .substring(1);
+    }
+    return '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4();
+  }
 
   onNoClick(): void {
     this.dialogRef.close();

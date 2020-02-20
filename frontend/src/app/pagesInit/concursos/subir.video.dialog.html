@@ -21,20 +21,28 @@
   <br> -->
 
 
-  <form class="example-container" [formGroup]="uploadForm" (ngSubmit)="onSubmit()">
+  <form class="" [formGroup]="uploadForm" (ngSubmit)="onSubmit()">
 
-    <div>
-      <input type="file" name="video" (change)="onFileSelect($event)" />
+
+    <input type="file" name="video" (change)="onFileSelect($event)" />
+
+    <mat-form-field>
+      <input matInput cdkFocusInitial placeholder="Nombres del Participante" type="text" formControlName="name" name="name">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Apellidos del Participante" type="text" formControlName="lastName" name="lastName">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="E-mail" type="text" formControlName="email" name="email">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Mensaje de tu video" type="text" formControlName="message" name="message">
+    </mat-form-field>
+    <div mat-dialog-actions>
+      <button mat-button (click)="onNoClick()">Cancelar</button>
+      <button mat-button type="submit">Upload</button>
     </div>
 
-    nombre: <input type="text" name="name">
-    lastName: <input type="text" name="lastName">
-    email: <input type="text" name="email">
-    mensaje: <input type="text" name="message">
-
-    <div>
-      <button type="submit">Upload</button>
-    </div>
     <!-- <mat-form-field>
       <input matInput type="text" [(ngModel)]="data.name" placeholder="Nombres del Participante" cdkFocusInitial>
     </mat-form-field> -->
@@ -47,11 +55,11 @@
     <!-- </mat-form-field> -->
   </form>
 
-
+  <br>
 </div>
 
 
-<div mat-dialog-actions>
+<!-- <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Cancelar</button>
   <button mat-button [mat-dialog-close]="data">Subir Video</button>
-</div>
+</div> -->
