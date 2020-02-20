@@ -1,0 +1,24 @@
+#!/bin/bash
+#echo Hello, World!
+FILES=/home/ddiaz17/proyecto1/videouploads/*
+cd /home/ddiaz17/proyecto1/videouploads/
+
+for file in $FILES
+do
+    
+	echo $(basename $file)
+
+	ffmpeg -i $(basename $file) -vcodec h264 -acodec aac -strict -2 /home/ddiaz17/proyecto1/videoconverts/$(basename $file).mp4
+
+	mysql -h localhost -u root -pcN2E6sQ4 -e "SELECT * FROM proyecto1.videos;UPDATE proyecto1.videos SET estadovideo = '1' WHERE nombrevideo = '$(basename $file)';"
+
+	echo "Tu video ha sido procesado y publicado en la página del concurso." | mail -s "Video publicado" diadiego86@hotmail.com
+
+	mv $(basename $file) /home/ddiaz17/proyecto1/videooriginal/$(basename $file)
+  
+done
+
+
+
+
+

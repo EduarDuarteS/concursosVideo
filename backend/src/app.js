@@ -28,8 +28,8 @@ app.use(function(req, res, next) {
 });
 
 //sequelize.sync({force:true})
-//sequelize.sync({alter: true})
-sequelize.sync()
+sequelize.sync({alter: true})
+//sequelize.sync()
 
 const publicDirectoryPath = path.join(__dirname, '../resources')
 app.use('/resources', express.static(publicDirectoryPath))
