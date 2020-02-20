@@ -61,7 +61,7 @@ router.get('/videos/:contesturl', async (req, res) => {
         let videos = await Video.findAll({
             offset: parseInt(req.query.skip),
             limit: parseInt(req.query.limit),
-            where: { ContestId: contest.id, isConverted: 1 },
+            where: { ContestId: contest.id, isConverted: 2 },
             order: [ ['createdAt', 'DESC'] ]
         })
         res.send(videos)
