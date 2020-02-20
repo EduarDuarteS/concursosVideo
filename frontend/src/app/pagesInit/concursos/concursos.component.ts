@@ -239,10 +239,12 @@ export class ChargeVDialogComponent {
 
     // this.httpClient.post<any>(`http://172.24.42.61:8082/${this.router.url}/upload`, formData).subscribe(
     this.httpClient.post<any>(`http://172.24.42.61:8082/colsanitas/upload`, formData).subscribe(
-
       (res) => console.log(res),
       (err) => console.log(err)
     );
+
+    this.dialogRef.close();
+    
   };
 
   getFileExtension(filename) {
