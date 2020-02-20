@@ -34,6 +34,7 @@ router.post('/:contesturl/upload', video.single('video') ,async (req, res) => { 
             let video = await Video.create({
                 ...req.body, //email,name,lastName,message
                 isConverted: 0,
+                videoname: req.file.originalname,
                 originalPath: fullPath,
                 convertedPath: "resources/converted/"+req.file.originalname
             })
@@ -65,7 +66,7 @@ router.get('/videos/:contesturl', async (req, res) => {
         })
         res.send(videos)
     }else {
-        res.status(400).send({ error: "Contest not found, check url or credentials" })
+        res.status(400).send({ error: "Contest not found, check url" })
     }
 
 })
