@@ -6,6 +6,8 @@ UPLOAD="resources/upload/"
 UNPROCESSED="resources/unprocessed/"
 CONVERTED="resources/converted/"
 
+OIFS="$IFS"
+IFS=$'\n'
 
 for file in $FILES
 do
@@ -30,3 +32,6 @@ do
 
 
 done
+
+
+IFS="$OIFS"
