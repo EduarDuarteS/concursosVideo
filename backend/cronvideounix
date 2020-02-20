@@ -6,13 +6,27 @@ UPLOAD="resources/upload/"
 UNPROCESSED="resources/unprocessed/"
 CONVERTED="resources/converted/"
 
+
 for file in $FILES
 do
-    echo $(basename $file)
-    TMP="$(echo $FILE | sed 's/\.[^.]*$//')"
-    ffmpeg -i $(basename $file) -vcodec h264 -acodec aac -strict -2 ../converted/$(basename $file).mp4
-    mysql -h localhost -uproyecto1 -proot_password -e "UPDATE proyecto1.Videos SET isConverted=1 WHERE originalPath='$UNPROCESSED$(basename $file)';UPDATE proyecto1.Videos SET convertedPath='$CONVERTED$(basename $file).mp4' WHERE originalPath='$UNPROCESSED$(basename $file)';UPDATE proyecto1.Videos SET originalPath='$UPLOAD$(basename $file)' WHERE originalPath='$UNPROCESSED$(basename $file)'"
-    EMAIL=$(mysql -h localhost -uroot -ph3lpUsJ3sus\!20 -s -N -e "SELECT email FROM proyecto1.Videos WHERE convertedPath='$CONVERTED$(basename $file).mp4'");
-    echo "Tu video ha sido procesado y publicado en la página del concurso." | mail -s "Video publicado" $EMAIL
-    mv $(basename $file) /home/grupo3/Grupo03/backend/resources/upload/$(basename $file)
+    COND1=$(mysql -h localhost -uroot -proot_password -s -N -e "SELECT isConverted FROM proyecto1.Videos WHERE videoname='$(basename $file)';")
+    if  [ $COND1 -eq 0 ]
+    then
+        mysql -h localhost -uroot -proot_password -e "UPDATE proyecto1.Videos SET isConverted=1 WHERE videoname='$(basename $file)';"
+        TMP="$(echo $FILE | sed 's/\.[^.]*$//')"
+        ffmpeg -i $(basename $file) -vcodec h264 -acodec aac -strict -2 ../converted/$(basename $file).mp4
+        mysql -h localhost -uroot -proot_password -e "UPDATE proyecto1.Videos SET convertedPath='$CONVERTED$(basename $file).mp4' WHERE videoname='$(basename $file)';
+                                                           UPDATE proyecto1.Videos SET originalPath='$UPLOAD$(basename $file)' WHERE videoname='$(basename $file)'"
+        EMAIL=$(mysql -h localhost -uroot -proot_password -s -N -e "SELECT email FROM proyecto1.Videos WHERE videoname='$(basename $file)'");
+        echo "Tu video ha sido procesado y publicado en la página del concurso." | mail -s "Video publicado" $EMAIL
+        mv $(basename $file) /home/grupo3/Grupo03/backend/resources/upload/$(basename $file)
+        mysql -h localhost -uroot -proot_password -e "UPDATE proyecto1.Videos SET isConverted=2 WHERE videoname='$(basename $file)';"
+    else
+
+#       echo "NADA QUE HACER." | mail -s "NADA QUE HACER" diadiego86@hotmail.com
+        echo nada que hacer
+
+    fi
+
+
 done
