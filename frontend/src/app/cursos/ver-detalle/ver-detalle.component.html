@@ -1,1 +1,43 @@
-<p>ver-detalle works!</p>
+<div *ngIf="concurso" >
+
+<div style="margin-left:2%;margin-right:2%;margin-top:0px ">
+  <!-- Page Content -->
+  <h1 class="font-weight-light"> {{concurso.description}}</h1>
+  <p class="lead" style="color:gray">El concurso empieza el <i>{{concurso.startDate | date }}</i> y termina el <i>{{concurso.endDate | date}}</i></p>
+
+  <!-- Subir Video -->
+  <div class="">
+    <button class="btn btn-secondary" (click)="openDialog()" color="primary">Sube tu Video</button>
+  </div>
+  <br>
+
+
+
+  <div class="" *ngIf=dataVideo>
+    <mat-table #table [dataSource]="dataSource">
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="Videos">
+        <mat-header-cell *matHeaderCellDef> Videos de Concursantes </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <div class="" style="margin-top:10px; margin-bottom:15px; text-align: center;">
+
+            <b>Descripción: </b>{{element.message}}
+            <!-- <jw-player [file]="element.convertedPath" [height]="height" [width]="width" (onTime)="onTime($event)">>
+            </jw-player> -->
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+
+    <mat-paginator class="d-flex justify-content-center" style="text-align: center; justify-content: center; margin-left=30%" #paginator id="paginator" [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true">
+    </mat-paginator>
+  </div>
+
+
+
+</div>
+</div>
