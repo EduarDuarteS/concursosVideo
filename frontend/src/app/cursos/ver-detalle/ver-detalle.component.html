@@ -22,9 +22,17 @@
       <ng-container matColumnDef="Videos">
         <mat-header-cell *matHeaderCellDef> Videos de Concursantes </mat-header-cell>
         <mat-cell *matCellDef="let element">
-          <div class="" style="margin-top:10px; margin-bottom:15px; text-align: center;">
+          <div class="" style="margin-top:10px; margin-bottom:15px; text-align: left;">
 
-            <b>Descripción: </b>{{element.message}}
+            <b>Descripción: </b>{{element.message}}<br>
+            <b>email: </b>{{element.email}}<br>
+            <b>name: </b>{{element.name}}<br>
+            <b>isConverted: </b>{{element.isConverted}}<br>
+            <b>originalPath: </b><a href="http://172.24.42.61:8082/{{element.originalPath}}">{{element.originalPath}}</a><br>
+            <b>convertedPath: </b><a href="http://172.24.42.61:8082/{{element.convertedPath}}">{{element.convertedPath}}</a><br>
+            <b>createdAt: </b>{{element.createdAt}}<br>
+
+
             <!-- <jw-player [file]="element.convertedPath" [height]="height" [width]="width" (onTime)="onTime($event)">>
             </jw-player> -->
           </div>

@@ -14,9 +14,12 @@ declare var jwplayer: any;
 })
 export class VerDetalleComponent implements OnInit {
 
-  href;
+  hreff;
   urlUnica;
-  concurso;
+
+  @ViewChild("player", { static: false }) video: ElementRef;
+  public href: string = "";
+  public concurso: any;
 
   //paginator
   displayedColumns = ['Videos'];
@@ -51,10 +54,10 @@ export class VerDetalleComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.href = this.router.url;
+    this.hreff = this.router.url;
     console.log(this.router.url);
-    console.log(this.href.split('/').pop());
-    this.urlUnica = '/'+this.href.split('/').pop();
+    console.log(this.hreff.split('/').pop());
+    this.urlUnica = '/'+this.hreff.split('/').pop();
 
         this.urlUnicaService.getConcurso(this.urlUnica)
           .subscribe(
@@ -72,6 +75,24 @@ export class VerDetalleComponent implements OnInit {
               // this.router.navigate(['/admin/eventos']);
             }
           );
+
+          // Obtener VIDEOS
+          this.urlUnicaService.getVideos(this.urlUnica, 0, 50)
+            .subscribe(
+              result => {
+                // this.concurso = result;
+                this.dataVideo = result;
+                this.dataSource = new MatTableDataSource<Element>(result);
+                if (!result) {
+                }
+              },
+              error => {
+                console.log(error);
+              },
+              () => {
+                // this.router.navigate(['/admin/eventos']);
+              }
+            );
   }
 
 }
