@@ -57,22 +57,43 @@
     <!-- <jw-player [file]="file" [height]="height" [width]="width" (onTime)="onTime($event)">
   </jw-player> -->
 
-    <div >
-      <!-- <div class="row">  -->
+    <div class="" *ngIf=dataVideo>
+      <mat-table #table [dataSource]="dataSource">
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="Videos">
+          <mat-header-cell *matHeaderCellDef> Videos de Concursantes </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <div class="" style="margin-top:10px; margin-bottom:15px">
+
+              <b>Descripción: </b>{{element.message}}
+              <jw-player [file]="element.convertedPath" [height]="height" [width]="width" (onTime)="onTime($event)">>
+              </jw-player>
+            </div>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+
+      <mat-paginator #paginator id="paginator" [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true">
+      </mat-paginator>
+    </div>
+
+    <!-- <div>
       <div style="margin-bottom:50px;" class="col-md-4 " *ngFor="let video of dataVideo">
         <div class="card">
           <div class="card-image">
 
             <jw-player [file]="video.convertedPath" [height]="height" [width]="width" (onTime)="onTime($event)">>
             </jw-player>
-          </div><!-- card image -->
-
+          </div>
           <div class="card-content">
             <span class="card-title">{{video.message}}</span>
-
-          </div><!-- card content -->
+          </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
   </div>

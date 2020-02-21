@@ -1,4 +1,5 @@
 import { Component, OnInit, AfterViewInit, Inject, ViewChild, ElementRef } from '@angular/core';
+import { MatPaginator, MatSort, MatTableDataSource  } from '@angular/material';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { EmbedVideoService } from 'ngx-embed-video';
@@ -35,6 +36,30 @@ export class ConcursosComponent implements OnInit {
   public href: string = "";
   public concurso: any;
 
+  //paginator
+  displayedColumns = ['Videos'];
+  // dataSource: any = new MatTableDataSource<any>();
+  dataSource = new MatTableDataSource([]);
+
+  // @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+  @ViewChild(MatSort) set matSort(ms: MatSort) {
+      this.sort = ms;
+      this.setDataSourceAttributes();
+  }
+
+  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
+      this.paginator = mp;
+      this.setDataSourceAttributes();
+  }
+
+  setDataSourceAttributes() {
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+
+      if (this.paginator && this.sort) {
+          this.applyFilter('');
+      }
+  }
   // Datos de video
   yt_iframe_html: any;
   vimeo_iframe_html: any;
@@ -100,7 +125,7 @@ export class ConcursosComponent implements OnInit {
           // this.concurso = result;
           console.log("----------result: ", `${environment.apiUrl}`, result);
           this.dataVideo = result;
-
+          this.dataSource = new MatTableDataSource<Element>(result);
           if (!result) {
           }
         },
@@ -143,7 +168,12 @@ export class ConcursosComponent implements OnInit {
   refresh(): void {
     this._document.defaultView.location.reload();
   }
-  ngAfterViewInit() { };
+  ngAfterViewInit() {
+    console.log("paginator:---------",this.paginator, this._document.getElementsByTagName("MAT-PAGINATOR"));
+    // this.dataSource.paginator = this._document.getElementsByTagName("MAT-PAGINATOR");
+    // console.log('message', this.dataSource.paginator);
+    this.dataSource.paginator = this.paginator;
+  }
 }
 
 
