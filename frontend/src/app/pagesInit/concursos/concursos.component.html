@@ -4,47 +4,49 @@
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow fixed-top" *ngIf=concurso>
     <a class="navbar-brand" href="#"><i><b>{{concurso.name}}</b></i></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+    <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarResponsive">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item active">
-          <a class="nav-link" (click)="openDialog()" href="javascript:void(0);">Sube tu Video
-            <span class="sr-only">(current)</span>
-          </a>
-        </li>
-        <!-- <li class="nav-item">
+    </button> -->
+    <!-- <div class="collapse navbar-collapse" id="navbarResponsive"> -->
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item active">
+        <a class="nav-link" (click)="openDialog()" href="javascript:void(0);">Sube tu Video
+          <span class="sr-only">(current)</span>
+        </a>
+      </li>
+      <!-- <li class="nav-item">
           <a class="nav-link" href="#">About</a>
         </li>    -->
-      </ul>
+    </ul>
+    <!-- </div> -->
+    <div style="position:fixed; z-index:10;top:56px;right:1%;left:1%;background-color:white;">
+
+      <!-- Full Page Image Header with Vertically Centered Content -->
+      <!-- <header class="masthead" style=`background-image: url('${concurso.banner}')`> -->
+
+      <!-- <header class="masthead" style="background-image: url('https://www.viviendocali.com/wp-content/uploads/2019/05/EPS-Sanitas-en-soledad.jpg')"> -->
+      <header class="masthead" [ngStyle]="{'background-image': 'url(' + concurso.banner + ')'}">
+        <div class="container h-100">
+          <div class="row h-100 align-items-center">
+            <div class="col-12 text-center">
+
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Page Content -->
+      <h1 class="font-weight-light"> {{concurso.description}}</h1>
+      <p class="lead" style="color:gray">El concurso empieza el <i>{{concurso.startDate | date }}</i> y termina el <i>{{concurso.endDate | date}}</i></p>
+
+      <!-- Subir Video -->
+      <button mat-button (click)="openDialog()" color="primary">Sube tu Video</button>
+      <!-- <div style="text-align:center;" [innerHtml]="yt_iframe_html"></div> -->
+
     </div>
   </nav>
 
-  <div style="margin-left:2%;margin-right:2%">
-
-    <!-- Full Page Image Header with Vertically Centered Content -->
-    <!-- <header class="masthead" style=`background-image: url('${concurso.banner}')`> -->
-
-    {{concurso}}
-    <!-- <header class="masthead" style="background-image: url('https://www.viviendocali.com/wp-content/uploads/2019/05/EPS-Sanitas-en-soledad.jpg')"> -->
-    <header class="masthead" [ngStyle]="{'background-image': 'url(' + concurso.banner + ')'}">
-      <div class="container h-100">
-        <div class="row h-100 align-items-center">
-          <div class="col-12 text-center">
-
-          </div>
-        </div>
-      </div>
-    </header>
-
-    <!-- Page Content -->
-    <h1 class="font-weight-light"> {{concurso.description}}</h1>
-    <p class="lead" style="color:gray">El concurso empieza el <i>{{concurso.startDate | date }}</i> y termina el <i>{{concurso.endDate | date}}</i></p>
-
-    <!-- Subir Video -->
-    <button mat-button (click)="openDialog()" color="primary">Sube tu Video</button>
-    <!-- <div style="text-align:center;" [innerHtml]="yt_iframe_html"></div> -->
+  <div style="margin-left:2%;margin-right:2%;margin-top:450px ">
 
     <!-- <section class="py-5">
   <div class="container">
@@ -77,7 +79,7 @@
         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
       </mat-table>
 
-      <mat-paginator style="text-align: center; justify-content: center; margin-left=30%" #paginator id="paginator" [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true">
+      <mat-paginator class="d-flex justify-content-center" style="text-align: center; justify-content: center; margin-left=30%" #paginator id="paginator" [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true">
       </mat-paginator>
     </div>
 
