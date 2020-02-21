@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, Inject, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Inject, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -8,19 +8,140 @@ import { DatePipe, DOCUMENT } from "@angular/common";
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
+import 'rxjs/add/operator/take';
 import Swal from 'sweetalert2';
 
 declare var jwplayer: any;
 
 export interface DialogData {
-  nombre: string,
-  lugar: string,
-  direccion: string,
-  date_inicio: DatePipe,
-  date_fin: DatePipe,
-  tipo_evento: string,
-  id_categoria: number
+  cancelado: boolean,
+  formData: FormData,
 }
+
+// -----------------------------------
+//  Componet Dialogo                //
+// -----------------------------------
+@Component({
+  selector: 'dialog-overview-example-dialog',
+  templateUrl: 'subir.video.dialog.html',
+  styles: [`.modal__content,dialog-layout,mat-dialog-container,.mat-dialog-container,#cdk-overlay-0,.cdk-overlay-pane {
+    z-index: 9999 !important;`]
+})
+export class ChargeVDialogComponent {
+
+  uploadForm: FormGroup;
+
+  constructor(
+    public dialogRef: MatDialogRef<ChargeVDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    private formBuilder: FormBuilder,
+    private httpClient: HttpClient
+  ) {
+    // this.uploadForm = new FormGroup({
+    //   name: new FormControl(),
+    //   lastName: new FormControl(),
+    //   email: new FormControl(),
+    //   message: new FormControl()
+    // });
+  }
+
+  ngOnInit() {
+    this.uploadForm = this.formBuilder.group({
+      profile: [''],
+      name: new FormControl(),
+      lastName: new FormControl(),
+      email: new FormControl(),
+      message: new FormControl()
+    });
+    console.log(this.uploadForm);
+  }
+  onFileSelect(event) {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.uploadForm.get('profile').setValue(file);
+      console.log(this.uploadForm);
+
+    }
+  }
+
+  onSubmit(): void {
+    let formData = new FormData();
+
+    formData.append("name", this.uploadForm.get('name').value);
+    formData.append("lastName", this.uploadForm.get('lastName').value);
+    formData.append("email", this.uploadForm.get('email').value);
+    formData.append("message", this.uploadForm.get('message').value);
+    // formData.append("videoname", "PRUEBA");
+    // formData.append("videoname", this.uploadForm.get('videoname').value);
+
+    console.log("uploadForm: ", this.uploadForm);
+    console.log("email", this.uploadForm.get('email').value);
+
+    //capturar ext
+    let ext: string = this.getFileExtension(this.uploadForm.value.profile.name);
+    let nombre: string = this.uploadForm.value.profile.name;
+    let nomSinExt: string = nombre.substr(0, (nombre.length - (ext.length + 1)));
+
+    let newNom: string = nomSinExt + this.guid() + "." + ext;
+    // console.log(this.uploadForm.get('profile'));
+    // console.log(this.uploadForm.get('profile').value.name);
+    // let mani: any =
+    // this.uploadForm.get('profile').setValue({
+    //   name: newNom,
+    // });
+
+    formData.append('video', this.uploadForm.get('profile').value);
+    // .setValue(newNom)
+    // mani.value.name = newNom;
+    // console.log(this.uploadForm.get('profile'));
+    // console.log(this.uploadForm.get('profile').value.name);
+
+    // this.data.formData = formData;
+    // console.log("data: ",this.data);
+
+    // console.log("newNom: ", newNom);
+
+    // Display the key/value pairs
+    // for (var pair of formData.entries()) {
+    //   console.log(pair[0] + ', ' + pair[1]);
+    // }
+
+
+
+    // console.log(formData.getAll());
+    // console.log(this.uploadForm.get('name').value);
+    // formData.append("name", this.form.get('name').value);
+
+    // this.httpClient.post<any>(`http://172.24.42.61:8082/${this.router.url}/upload`, formData).subscribe(
+    console.log('formData_', formData);
+    this.data.formData = formData;
+    this.dialogRef.close(this.data);
+
+  };
+
+  getFileExtension(filename) {
+    return filename.split('.').pop();
+  }
+
+  guid() {
+    function s4() {
+      return Math.floor((1 + Math.random()) * 0x10000)
+        .toString(16)
+        .substring(1);
+    }
+    return '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4();
+  }
+
+  onNoClick(): void {
+    this.data.cancelado = true;
+    this.dialogRef.close(this.data);
+  };
+
+}
+// -----------------------------
+// fin Componet Dialogo       //
+// -----------------------------
+
 
 @Component({
   selector: 'app-concursos',
@@ -32,6 +153,8 @@ export class ConcursosComponent implements OnInit {
   public loading: boolean = true;
   public ip: string = `${environment.apiUrl}/`;
   public dataVideo: any;
+
+  @ViewChild(ChargeVDialogComponent, { static: false }) chilDialog;
 
   @ViewChild("player", { static: false }) video: ElementRef;
   public href: string = "";
@@ -91,6 +214,7 @@ export class ConcursosComponent implements OnInit {
     private router: Router,
     private embedService: EmbedVideoService,
     private urlUnicaService: URLUnicaService,
+    private httpClient: HttpClient,
     public dialog: MatDialog,
     @Inject(DOCUMENT) private _document: Document
   ) {
@@ -153,25 +277,43 @@ export class ConcursosComponent implements OnInit {
   openDialog(): void {
     const dialogRef = this.dialog.open(ChargeVDialogComponent, {
       width: '350px',
-      data: {
-      }
+      data: {}
     });
 
 
-
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      console.log("result-dialog: ", result);
+      console.log("result: ", result);
 
       if (result) {
+        console.log("result: ", result);
+
         if (result.cancelado) {
+          console.log("result: ", result);
+
           Swal.fire('No subiste tu Videoo...', 'Esperamos te animes a concursar con tu video', 'info');
         } else {
-          console.log("formDATA:", result.formData);
-          // this.urlUnicaService.getConcurso(this.router.url).subscribe(respuesta => {
-          // });
+          console.log("formDATA new:", result.formData);
 
-          Swal.fire('Estas Concursando', 'Tu video a sido subido con exito vamos a procesarlo y prontamente estara en la pagina.', 'success')
+          // this.httpClient.post<any>(`http://172.24.42.61:8082/colsanitas/upload`,  result.formData).subscribe(
+          //   (res) => console.log(res),
+          //   (err) => console.log(err)
+          // );
+
+          this.urlUnicaService.postVideo(this.router.url, result.formData)
+            .subscribe(
+              result => {
+                Swal.fire('Estas Concursando', 'Tu video a sido subido con exito vamos a procesarlo y prontamente estara en la pagina.', 'success')
+                if (!result) { }
+              },
+              error => {
+                console.log(error);
+                Swal.fire('Oops...', 'No se ha cargado tu video, por favor vuelve a intentarlo', 'error');
+              },
+              () => {
+                // this.router.navigate(['/admin/eventos']);
+              }
+            );
+
         };
         //   console.log('data', respuesta);
         //   this.refresh();
@@ -190,128 +332,4 @@ export class ConcursosComponent implements OnInit {
     // console.log('message', this.dataSource.paginator);
     this.dataSource.paginator = this.paginator;
   }
-}
-
-
-
-// -----------------------------------
-// Concursos Componet Dialogo       //
-// -----------------------------------
-@Component({
-  selector: 'dialog-overview-example-dialog',
-  templateUrl: 'subir.video.dialog.html',
-  styles: [`.modal__content,dialog-layout,mat-dialog-container,.mat-dialog-container,#cdk-overlay-0,.cdk-overlay-pane {
-    z-index: 9999 !important;`]
-})
-export class ChargeVDialogComponent {
-
-  uploadForm: FormGroup;
-  constructor(
-    public dialogRef: MatDialogRef<ChargeVDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,
-    private formBuilder: FormBuilder,
-    private httpClient: HttpClient
-  ) {
-    // this.uploadForm = new FormGroup({
-    //   name: new FormControl(),
-    //   lastName: new FormControl(),
-    //   email: new FormControl(),
-    //   message: new FormControl()
-    // });
-  }
-
-  ngOnInit() {
-    this.uploadForm = this.formBuilder.group({
-      profile: [''],
-      name: new FormControl(),
-      lastName: new FormControl(),
-      email: new FormControl(),
-      message: new FormControl()
-    });
-    console.log(this.uploadForm);
-  }
-  onFileSelect(event) {
-    if (event.target.files.length > 0) {
-      const file = event.target.files[0];
-      this.uploadForm.get('profile').setValue(file);
-      console.log(this.uploadForm);
-
-    }
-  }
-
-  Submit(): void {
-    let formData = new FormData();
-
-    formData.append("name", this.uploadForm.get('name').value);
-    formData.append("lastName", this.uploadForm.get('lastName').value);
-    formData.append("email", this.uploadForm.get('email').value);
-    formData.append("message", this.uploadForm.get('message').value);
-    // formData.append("videoname", "PRUEBA");
-    // formData.append("videoname", this.uploadForm.get('videoname').value);
-
-    console.log("uploadForm: ", this.uploadForm);
-
-    //capturar ext
-    let ext: string = this.getFileExtension(this.uploadForm.value.profile.name);
-    let nombre: string = this.uploadForm.value.profile.name;
-    let nomSinExt: string = nombre.substr(0, (nombre.length - (ext.length + 1)));
-
-    let newNom: string = nomSinExt + this.guid() + "." + ext;
-    // console.log(this.uploadForm.get('profile'));
-    // console.log(this.uploadForm.get('profile').value.name);
-    // let mani: any =
-    // this.uploadForm.get('profile').setValue({
-    //   name: newNom,
-    // });
-
-    formData.append('video', this.uploadForm.get('profile').value);
-    // .setValue(newNom)
-    // mani.value.name = newNom;
-    // console.log(this.uploadForm.get('profile'));
-    // console.log(this.uploadForm.get('profile').value.name);
-
-    this.data.formData = formData;
-    console.log("data: ",this.data);
-
-    // console.log("newNom: ", newNom);
-
-    // Display the key/value pairs
-    // for (var pair of formData.entries()) {
-    //   console.log(pair[0] + ', ' + pair[1]);
-    // }
-
-
-
-    // console.log(formData.getAll());
-    // console.log(this.uploadForm.get('name').value);
-    // formData.append("name", this.form.get('name').value);
-
-    // this.httpClient.post<any>(`http://172.24.42.61:8082/${this.router.url}/upload`, formData).subscribe(
-    this.httpClient.post<any>(`http://172.24.42.61:8082/colsanitas/upload`, formData).subscribe(
-      (res) => console.log(res),
-      (err) => console.log(err)
-    );
-
-    this.dialogRef.close();
-
-  };
-
-  getFileExtension(filename) {
-    return filename.split('.').pop();
-  }
-
-  guid() {
-    function s4() {
-      return Math.floor((1 + Math.random()) * 0x10000)
-        .toString(16)
-        .substring(1);
-    }
-    return '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4();
-  }
-
-  onNoClick(): void {
-    this.data.cancelado = true;
-    this.dialogRef.close();
-  };
-
 }

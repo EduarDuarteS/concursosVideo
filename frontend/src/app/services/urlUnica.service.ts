@@ -37,6 +37,27 @@ export class URLUnicaService {
     return this.httpClient.get<any>(videosUrl, this.httpOptions);
   }
 
+
+  postVideo(url_unica: string, formData): Observable<Response> {
+    let videosUrl = `${environment.apiUrl}${url_unica}/upload`;
+    console.log('videosUrl',videosUrl);
+    console.log('formData_: ',formData);
+    return this.httpClient.post<any>(videosUrl, formData)
+      .pipe(
+        map((response: any) => {
+          console.log('response: ',response);
+          return response;
+        }),
+        retry(1),
+        catchError(err => {
+          console.log('Error cargando VIDEO', err);
+          return Observable.throw(err);
+        }
+        )
+      );
+  }
+
+
   delEvent(id): Observable<any> {
     let delEventUrl = `${environment.apiUrl}/contest/delete/${id}`;
     console.log("delEventUrl", delEventUrl);
