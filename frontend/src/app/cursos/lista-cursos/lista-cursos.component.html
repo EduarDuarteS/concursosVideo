@@ -15,9 +15,15 @@
           </p>
         </mat-card-content>
         <mat-card-actions class="actions">
+
           <button mat-button (click)="editarEvent(evento,'01')">Detalle</button>
-          <button mat-button (click)="delEvent(evento.id)">Eliminar</button>
-          <button mat-button (click)="editarEvent(evento)">Editar</button>
+          <!-- <button mat-button href="#/admin/eventos/ver{{evento.url}}">Ver</button> -->
+          <button mat-button [routerLink]="['./ver' + evento.url]">Ver</button>
+
+          <div class="">
+            <button mat-button (click)="delEvent(evento.id)">Eliminar</button>
+            <button mat-button (click)="editarEvent(evento)">Editar</button>
+          </div>
         </mat-card-actions>
       </mat-card>
     </div>

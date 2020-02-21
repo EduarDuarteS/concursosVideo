@@ -22,6 +22,11 @@ const routes: Routes = [
         data: { preload: true }
       },
       {
+        path: 'ver/:concurso',
+        loadChildren: './cursos/cursos.module#CursosModule',
+        data: { preload: true }
+      },
+      {
         path: 'contenido-interactivo',
         loadChildren: './contenido-interactivo/contenido-interactivo.module#ContenidoInteractivoModule',
         canActivate: [AuthGuard],
