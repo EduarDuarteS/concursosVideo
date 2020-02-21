@@ -22,7 +22,7 @@
     border-bottom: 0.5px solid #b7b4b4;
     height: 50px;
     display: flex;
-    align-items: end;
+    /* align-items: end; */
 }
 .padding-cero {
     padding: 0;

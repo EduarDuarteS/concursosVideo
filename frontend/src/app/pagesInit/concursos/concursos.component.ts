@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit, Inject, ViewChild, ElementRef } from '@angular/core';
-import { MatPaginator, MatSort, MatTableDataSource  } from '@angular/material';
+import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { EmbedVideoService } from 'ngx-embed-video';
@@ -8,6 +8,7 @@ import { DatePipe, DOCUMENT } from "@angular/common";
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
+import Swal from 'sweetalert2';
 
 declare var jwplayer: any;
 
@@ -46,22 +47,22 @@ export class ConcursosComponent implements OnInit {
 
   // @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) set matSort(ms: MatSort) {
-      this.sort = ms;
-      this.setDataSourceAttributes();
+    this.sort = ms;
+    this.setDataSourceAttributes();
   }
 
   @ViewChild(MatPaginator, { static: false }) set matPaginator(mp: MatPaginator) {
-      this.paginator = mp;
-      this.setDataSourceAttributes();
+    this.paginator = mp;
+    this.setDataSourceAttributes();
   }
 
   setDataSourceAttributes() {
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
 
-      if (this.paginator && this.sort) {
-          this.applyFilter('');
-      }
+    if (this.paginator && this.sort) {
+      this.applyFilter('');
+    }
   }
   // Datos de video
   yt_iframe_html: any;
@@ -156,15 +157,27 @@ export class ConcursosComponent implements OnInit {
       }
     });
 
+
+
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       console.log("result-dialog: ", result);
 
-      // this.concursoService.createEvent(result).subscribe(respuesta => {
-      //   console.log('data', respuesta);
-      //   this.refresh();
-      // });
+      if (result) {
+        if (result.cancelado) {
+          Swal.fire('No subiste tu Videoo...', 'Esperamos te animes a concursar con tu video', 'info');
+        } else {
+          console.log("formDATA:", result.formData);
+          // this.urlUnicaService.getConcurso(this.router.url).subscribe(respuesta => {
+          // });
 
+          Swal.fire('Estas Concursando', 'Tu video a sido subido con exito vamos a procesarlo y prontamente estara en la pagina.', 'success')
+        };
+        //   console.log('data', respuesta);
+        //   this.refresh();
+      } else {
+        Swal.fire('No subiste tu Videoo...', 'Esperamos te animes a concursar con tu video', 'info');
+      }
     });
   }
 
@@ -172,7 +185,7 @@ export class ConcursosComponent implements OnInit {
     this._document.defaultView.location.reload();
   }
   ngAfterViewInit() {
-    console.log("paginator:---------",this.paginator, this._document.getElementsByTagName("MAT-PAGINATOR"));
+    console.log("paginator:---------", this.paginator, this._document.getElementsByTagName("MAT-PAGINATOR"));
     // this.dataSource.paginator = this._document.getElementsByTagName("MAT-PAGINATOR");
     // console.log('message', this.dataSource.paginator);
     this.dataSource.paginator = this.paginator;
@@ -226,7 +239,7 @@ export class ChargeVDialogComponent {
     }
   }
 
-  onSubmit(): void {
+  Submit(): void {
     let formData = new FormData();
 
     formData.append("name", this.uploadForm.get('name').value);
@@ -257,6 +270,8 @@ export class ChargeVDialogComponent {
     // console.log(this.uploadForm.get('profile'));
     // console.log(this.uploadForm.get('profile').value.name);
 
+    this.data.formData = formData;
+    console.log("data: ",this.data);
 
     // console.log("newNom: ", newNom);
 
@@ -270,7 +285,6 @@ export class ChargeVDialogComponent {
     // console.log(formData.getAll());
     // console.log(this.uploadForm.get('name').value);
     // formData.append("name", this.form.get('name').value);
-    console.log("formDATA:", formData);
 
     // this.httpClient.post<any>(`http://172.24.42.61:8082/${this.router.url}/upload`, formData).subscribe(
     this.httpClient.post<any>(`http://172.24.42.61:8082/colsanitas/upload`, formData).subscribe(
@@ -296,6 +310,7 @@ export class ChargeVDialogComponent {
   }
 
   onNoClick(): void {
+    this.data.cancelado = true;
     this.dialogRef.close();
   };
 
