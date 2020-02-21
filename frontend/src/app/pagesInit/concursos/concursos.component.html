@@ -18,35 +18,37 @@
           <a class="nav-link" href="#">About</a>
         </li>    -->
     </ul>
-    <!-- </div> -->
-    <div style="position:fixed; z-index:10;top:56px;right:1%;left:1%;background-color:white;">
+  </nav>
+  <!-- </div> -->
+  <div style="position:fixed; top:56px;right:1%;left:1%;background-color:white; z-index:10">
 
-      <!-- Full Page Image Header with Vertically Centered Content -->
-      <!-- <header class="masthead" style=`background-image: url('${concurso.banner}')`> -->
+    <!-- Full Page Image Header with Vertically Centered Content -->
+    <!-- <header class="masthead" style=`background-image: url('${concurso.banner}')`> -->
 
-      <!-- <header class="masthead" style="background-image: url('https://www.viviendocali.com/wp-content/uploads/2019/05/EPS-Sanitas-en-soledad.jpg')"> -->
-      <header class="masthead" [ngStyle]="{'background-image': 'url(' + concurso.banner + ')'}">
-        <div class="container h-100">
-          <div class="row h-100 align-items-center">
-            <div class="col-12 text-center">
+    <!-- <header class="masthead" style="background-image: url('https://www.viviendocali.com/wp-content/uploads/2019/05/EPS-Sanitas-en-soledad.jpg')"> -->
+    <header class="masthead" [ngStyle]="{'background-image': 'url(' + concurso.banner + ')'}">
+      <div class="container h-100">
+        <div class="row h-100 align-items-center">
+          <div class="col-12 text-center">
 
-            </div>
           </div>
         </div>
-      </header>
+      </div>
+    </header>
+  </div>
 
-      <!-- Page Content -->
-      <h1 class="font-weight-light"> {{concurso.description}}</h1>
-      <p class="lead" style="color:gray">El concurso empieza el <i>{{concurso.startDate | date }}</i> y termina el <i>{{concurso.endDate | date}}</i></p>
 
-      <!-- Subir Video -->
-      <button mat-button (click)="openDialog()" color="primary">Sube tu Video</button>
+  <div style="margin-left:2%;margin-right:2%;margin-top:310px ">
+    <!-- Page Content -->
+    <h1 class="font-weight-light"> {{concurso.description}}</h1>
+    <p class="lead" style="color:gray">El concurso empieza el <i>{{concurso.startDate | date }}</i> y termina el <i>{{concurso.endDate | date}}</i></p>
+
+    <!-- Subir Video -->
+    <div class="">
+      <button class="btn btn-secondary" (click)="openDialog()" color="primary">Sube tu Video</button>
       <!-- <div style="text-align:center;" [innerHtml]="yt_iframe_html"></div> -->
-
     </div>
-  </nav>
-
-  <div style="margin-left:2%;margin-right:2%;margin-top:450px ">
+    <br>
 
     <!-- <section class="py-5">
   <div class="container">

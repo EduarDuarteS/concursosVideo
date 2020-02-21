@@ -40,14 +40,17 @@ export class ConcursosComponent implements OnInit {
   displayedColumns = ['Videos'];
   // dataSource: any = new MatTableDataSource<any>();
   dataSource = new MatTableDataSource([]);
+  sort;
+  paginator;
+  applyFilter;
 
   // @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
-  @ViewChild(MatSort) set matSort(ms: MatSort) {
+  @ViewChild(MatSort, { static: false }) set matSort(ms: MatSort) {
       this.sort = ms;
       this.setDataSourceAttributes();
   }
 
-  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
+  @ViewChild(MatPaginator, { static: false }) set matPaginator(mp: MatPaginator) {
       this.paginator = mp;
       this.setDataSourceAttributes();
   }
@@ -184,6 +187,8 @@ export class ConcursosComponent implements OnInit {
 @Component({
   selector: 'dialog-overview-example-dialog',
   templateUrl: 'subir.video.dialog.html',
+  styles: [`.modal__content,dialog-layout,mat-dialog-container,.mat-dialog-container,#cdk-overlay-0,.cdk-overlay-pane {
+    z-index: 9999 !important;`]
 })
 export class ChargeVDialogComponent {
 

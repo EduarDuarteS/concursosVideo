@@ -1,11 +1,14 @@
-<h1 mat-dialog-title>Participa con tu Video</h1>
-<div mat-dialog-content>
+<div class="" class="modaleas" style="modal {
+    z-index: 0 !important;">
 
-  <div>
-    <p>Por favor ingrese los datos de tu Video</p>
-  </div>
+  <h1 mat-dialog-title>Participa con tu Video</h1>
+  <div mat-dialog-content>
 
-  <!-- <button type="button" mat-button (click)="imgFileInput.click()">Selecionar Video</button>
+    <div>
+      <p>Por favor ingrese los datos de tu Video</p>
+    </div>
+
+    <!-- <button type="button" mat-button (click)="imgFileInput.click()">Selecionar Video</button>
   <input hidden type="file" #imgFileInput [(ngModel)]="data.video" />
 
 
@@ -21,45 +24,59 @@
   <br> -->
 
 
-  <form class="" [formGroup]="uploadForm" (ngSubmit)="onSubmit()">
+    <form class="" [formGroup]="uploadForm" (ngSubmit)="onSubmit()">
 
 
-    <input type="file" name="video" (change)="onFileSelect($event)" />
 
-    <mat-form-field>
-      <input matInput cdkFocusInitial placeholder="Nombres del Participante" type="text" formControlName="name" name="name">
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput placeholder="Apellidos del Participante" type="text" formControlName="lastName" name="lastName">
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput placeholder="E-mail" type="text" formControlName="email" name="email">
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput placeholder="Mensaje de tu video" type="text" formControlName="message" name="message">
-    </mat-form-field>
-    <div mat-dialog-actions>
-      <button mat-button (click)="onNoClick()">Cancelar</button>
-      <button mat-button type="submit">Upload</button>
-    </div>
+      <mat-form-field>
+        <input matInput cdkFocusInitial placeholder="Nombres del Participante" type="text" formControlName="name" name="name">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Apellidos del Participante" type="text" formControlName="lastName" name="lastName">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="E-mail" type="text" formControlName="email" name="email">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Mensaje de tu video" type="text" formControlName="message" name="message">
+      </mat-form-field>
+      <!-- <div class="">
+        <input class="btn btn-secondary" type="file" name="video" (change)="onFileSelect($event)" />
+      </div> -->
+      <div class="input-group mb-3">
+        <!-- <div class="input-group-prepend">
+          <span class="input-group-text">Upload</span>
+        </div> -->
+        <div class="custom-file">
+          <input type="file" name="video" (change)="onFileSelect($event)"  class="custom-file-input" id="inputGroupFile01">
+          <label class="custom-file-label" for="inputGroupFile01">Escoja su Video</label>
+        </div>
+      </div>
 
-    <!-- <mat-form-field>
+      <div mat-dialog-actions class="d-flex justify-content-center">
+        <button mat-button (click)="onNoClick()"><i class="fas fa-window-close"></i> Cancelar</button>
+        <button mat-button type="submit"><i class="fas fa-cloud-upload-alt"></i> Upload</button>
+      </div>
+
+      <!-- <mat-form-field>
       <input matInput type="text" [(ngModel)]="data.name" placeholder="Nombres del Participante" cdkFocusInitial>
     </mat-form-field> -->
-    <!-- <input matInput [(ngModel)]="data.name" placeholder="Nombre del Concurso" cdkFocusInitial> -->
+      <!-- <input matInput [(ngModel)]="data.name" placeholder="Nombre del Concurso" cdkFocusInitial> -->
 
-    <!-- <mat-form-field> -->
-    <!-- <input hidden type="file" #imgFileInput (change)="previewImage($event)" /> -->
-    <!-- <input matInput [(ngModel)]="data.name" placeholder="Nombre del Concurso" cdkFocusInitial> -->
-    <!-- <input matInput type="file" [(ngModel)]="data.video" placeholder="Nombre del Participante" cdkFocusInitial> -->
-    <!-- </mat-form-field> -->
-  </form>
+      <!-- <mat-form-field> -->
+      <!-- <input hidden type="file" #imgFileInput (change)="previewImage($event)" /> -->
+      <!-- <input matInput [(ngModel)]="data.name" placeholder="Nombre del Concurso" cdkFocusInitial> -->
+      <!-- <input matInput type="file" [(ngModel)]="data.video" placeholder="Nombre del Participante" cdkFocusInitial> -->
+      <!-- </mat-form-field> -->
+    </form>
 
-  <br>
-</div>
+    <br>
+  </div>
 
 
-<!-- <div mat-dialog-actions>
+  <!-- <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Cancelar</button>
   <button mat-button [mat-dialog-close]="data">Subir Video</button>
 </div> -->
+
+</div>
